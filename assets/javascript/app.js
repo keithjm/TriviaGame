@@ -1,5 +1,7 @@
 
 
+$( document ).ready(function() {
+
 q1 = {
     "question":"In what year did the first human walk on the Moon?",
     "choices": ["1969", "1961", "1973","1974"],
@@ -19,9 +21,11 @@ q3 = {
     "choices": ["10", "12", "15","17"],
     "answerPos": 3
 };
-
-$( document ).ready(function() {
     startGame();    
+    
+    $(".choice").on("click", function(){ 
+        console.log("The value is " + $(this).val());
+    });
 
     function startGame() {
         $("#trivia-display").empty();
@@ -29,10 +33,7 @@ $( document ).ready(function() {
         $("#trivia-display").append(startButton);
     }
 
-
-
     function newQuestion(questionJSON) {
-
 
         //$("").empty();
         $("#trivia-display").empty();
@@ -47,12 +48,13 @@ $( document ).ready(function() {
         for(var i = 0; i < questionJSON.choices.length;  i++) {
             //choiceDiv.append(questionJSON.choices);
             var choiceButton = $("<button>").attr("type", "button");
-            choiceButton.attr("class", "btn btn-default");
+            choiceButton.attr("class", "btn btn-default choice");
+            choiceButton.attr("value", i);
             choiceButton.text(questionJSON.choices[i]);
             choiceDiv.append(choiceButton); 
         }
 
-        $("#trivia-display").append(qDiv, choiceDiv)
+        $("#trivia-display").append(qDiv, choiceDiv);
     }
-    //newQuestion(q1);
+    newQuestion(q1);
 });
